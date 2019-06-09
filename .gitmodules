@@ -1,0 +1,6 @@
+[submodule "Khagta/vendor/spdlog"]
+	path = Khagta/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "Khagta/vendor/GLFW"]
+	path = Khagta/vendor/GLFW
+	url = https://github.com/TheCherno/GLFW

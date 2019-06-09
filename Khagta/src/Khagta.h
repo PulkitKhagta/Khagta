@@ -3,8 +3,10 @@
 
 
 // For use by Khagta Applications
-#include<stdio.h>
+
 #include "Khagta/Application.h"
+
+#include "Khagta/Log.h"
 
 //-------EntryPoint---------------
 #include "Khagta/EntryPoint.h"
