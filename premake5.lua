@@ -14,8 +14,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directories)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Khagta/vendor/GLFW/include"
+IncludeDir["Glad"] = "Khagta/vendor/Glad/include"
 
 include "Khagta/vendor/GLFW"
+include "Khagta/vendor/Glad"
 
 project "Khagta"
 	location "Khagta"
@@ -39,12 +41,14 @@ project "Khagta"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src",
 
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	 links
 	 {
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	 }
 
@@ -57,24 +61,28 @@ project "Khagta"
 		defines
 		{
 		"KG_PLATFORM_WINDOWS",
-		"KG_BUILD_DLL"
+		"KG_BUILD_DLL",
+		"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %(cfg.buildtarget.relpath) ../bin/" .. outputdir .. "/Sandbox")
-		}
+		--postbuildcommands
+		--{
+		--	("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		--}
 
 	filter "configurations:Debug"
 		defines "KG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "KG_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
       
 	filter "configurations:Dist"
 		defines "KG_Dist"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -115,12 +123,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "KG_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "KG_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "KG_Dist"
+		buildoptions "/MD"
 		optimize "On"

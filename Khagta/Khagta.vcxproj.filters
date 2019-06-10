@@ -34,6 +34,12 @@
     <ClInclude Include="src\Khagta\Events\MouseEvent.h">
       <Filter>Khagta\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Khagta\Layer.h">
+      <Filter>Khagta</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\LayerStack.h">
+      <Filter>Khagta</Filter>
+    </ClInclude>
     <ClInclude Include="src\Khagta\Log.h">
       <Filter>Khagta</Filter>
     </ClInclude>
@@ -47,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Khagta\Application.cpp">
+      <Filter>Khagta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Layer.cpp">
+      <Filter>Khagta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\LayerStack.cpp">
       <Filter>Khagta</Filter>
     </ClCompile>
     <ClCompile Include="src\Khagta\Log.cpp">
