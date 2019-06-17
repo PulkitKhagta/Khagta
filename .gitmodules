@@ -4,3 +4,9 @@
 [submodule "Khagta/vendor/GLFW"]
 	path = Khagta/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
+[submodule "Khagta/vendor/imgui"]
+	path = Khagta/vendor/imgui
+	url = https://github.com/TheCherno/imgui
+[submodule "Khagta/vendor/glm"]
+	path = Khagta/vendor/glm
+	url = https://github.com/g-truc/glm

@@ -1,6 +1,6 @@
 workspace "Khagta"
 	architecture "x64"
-
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -15,14 +15,18 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Khagta/vendor/GLFW/include"
 IncludeDir["Glad"] = "Khagta/vendor/Glad/include"
+IncludeDir["imGui"] = "Khagta/vendor/imgui"
+IncludeDir["glm"] = "Khagta/vendor/glm"
 
 include "Khagta/vendor/GLFW"
 include "Khagta/vendor/Glad"
+include "Khagta/vendor/imgui"
 
 project "Khagta"
 	location "Khagta"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -33,7 +37,9 @@ project "Khagta"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -42,19 +48,21 @@ project "Khagta"
 		"%{prj.name}/src",
 
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.imGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	 links
 	 {
 		"GLFW",
 		"Glad",
+		"imGui",
 		"opengl32.lib"
 	 }
 
 	 filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 
@@ -67,28 +75,29 @@ project "Khagta"
 
 		--postbuildcommands
 		--{
-		--	("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		--	("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		--}
 
 	filter "configurations:Debug"
 		defines "KG_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "KG_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
       
 	filter "configurations:Dist"
 		defines "KG_Dist"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -102,7 +111,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Khagta/vendor/spdlog/include",
-		"Khagta/src"
+		"Khagta/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -112,7 +122,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 
@@ -123,15 +132,16 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "KG_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "KG_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "KG_Dist"
-		buildoptions "/MD"
+		
+		runtime "Release"
 		optimize "On"
