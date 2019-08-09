@@ -6,11 +6,13 @@
 #include "Khagta/Events/ApplicationEvent.h"
 #include "Window.h"
 
+#include "Khagta/Renderer/Shader.h"
+
 #include "imGui/imGuiLayer.h"
 
 namespace Khagta
 {
-	class KHAGTA_API Application
+	class   Application
 	{
 	public:
 		Application();
@@ -35,6 +37,9 @@ namespace Khagta
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 	private:
 		static Application* s_Instance;

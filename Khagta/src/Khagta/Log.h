@@ -6,7 +6,7 @@
 
 namespace Khagta
 {
-	class KHAGTA_API Log
+	class  Log
 	{
 	public:
 		static void Init();

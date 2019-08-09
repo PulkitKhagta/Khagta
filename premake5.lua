@@ -24,9 +24,10 @@ include "Khagta/vendor/imgui"
 
 project "Khagta"
 	location "Khagta"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -42,6 +43,11 @@ project "Khagta"
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
@@ -53,16 +59,15 @@ project "Khagta"
 		"%{IncludeDir.glm}"
 	}
 
-	 links
-	 {
+	links
+	{
 		"GLFW",
 		"Glad",
 		"imGui",
 		"opengl32.lib"
-	 }
+	}
 
-	 filter "system:windows"
-		cppdialect "C++17"
+	filter "system:windows"
 		systemversion "latest"
 
 
@@ -73,31 +78,28 @@ project "Khagta"
 		"GLFW_INCLUDE_NONE"
 		}
 
-		--postbuildcommands
-		--{
-		--	("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		--}
 
 	filter "configurations:Debug"
 		defines "KG_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "KG_RELEASE"
 		runtime "Release"
-		optimize "On"
-      
+		optimize "on"
+	  
 	filter "configurations:Dist"
 		defines "KG_Dist"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -112,16 +114,16 @@ project "Sandbox"
 	{
 		"Khagta/vendor/spdlog/include",
 		"Khagta/src",
+		"Khagta/vendor",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-	 	"Khagta"
+		"Khagta"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 
@@ -133,15 +135,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "KG_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "KG_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		
 	filter "configurations:Dist"
 		defines "KG_Dist"
-		
 		runtime "Release"
-		optimize "On"
+		optimize "on"

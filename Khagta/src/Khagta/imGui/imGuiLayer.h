@@ -8,7 +8,7 @@
 
 namespace Khagta {
 
-	class KHAGTA_API imGuiLayer : public Layer
+	class  imGuiLayer : public Layer
 	{
 	public:
 		imGuiLayer();

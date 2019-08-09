@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef KG_PLATFORM_WINDOWS
+#if KG_DYNAMIC_LINK
    #ifdef KG_BUILD_DLL
-        #define KHAGTA_API _declspec(dllexport)
+        #define   _declspec(dllexport)
    #else
-        #define KHAGTA_API _declspec(dllimport)
+        #define   _declspec(dllimport)
    #endif // KG_BUILD_DLL
+#else
+ 
+#endif
 #else
    #error Khagta only supports windows
 #endif

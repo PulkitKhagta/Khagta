@@ -1,5 +1,7 @@
 #include <Khagta.h>
 
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Khagta::Layer
 {
 public:
@@ -14,6 +16,13 @@ public:
 
 		if (Khagta::Input::IsKeyPressed(KG_KEY_TAB))
 			KG_TRACE("The key is pressed (poll)!");
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 
 	void OnEvent(Khagta::Event& event) override

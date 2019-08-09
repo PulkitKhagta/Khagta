@@ -5,7 +5,7 @@
 
 namespace Khagta {
 
-	class KHAGTA_API MouseMovedEvent : public Event
+	class  MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -28,7 +28,7 @@ namespace Khagta {
 		float m_MouseX, m_MouseY;
 	};
 
-	class KHAGTA_API MouseScrolledEvent : public Event
+	class  MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -50,7 +50,7 @@ namespace Khagta {
 		float m_XOffset, m_YOffset;
 	};
 
-	class KHAGTA_API MouseButtonEvent : public Event
+	class  MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -63,7 +63,7 @@ namespace Khagta {
 		int m_Button;
 	};
 
-	class KHAGTA_API MouseButtonPressedEvent : public MouseButtonEvent
+	class  MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -79,7 +79,7 @@ namespace Khagta {
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class KHAGTA_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class  MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

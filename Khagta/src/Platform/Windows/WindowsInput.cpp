@@ -2,7 +2,7 @@
 #include "WindowsInput.h"
 
 #include "Khagta/Application.h"
-#include <GLFW/glfw3.h>"
+#include "GLFW/glfw3.h"
 
 namespace Khagta {
 	Input* Input::s_Instance = new WindowsInput();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Khagta/Window.h"
+#include "Khagta/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -29,6 +30,7 @@ namespace Khagta {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
