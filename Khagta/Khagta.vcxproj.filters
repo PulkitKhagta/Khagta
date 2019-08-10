@@ -1194,6 +1194,9 @@
     <ClInclude Include="src\Khagta\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Khagta\Renderer\Shader.h" />
+    <ClInclude Include="src\Khagta\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Khagta\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Khagta\Application.cpp">
@@ -1225,5 +1228,8 @@
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Khagta\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Khagta\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Khagta\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>
