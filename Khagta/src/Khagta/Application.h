@@ -6,10 +6,6 @@
 #include "Khagta/Events/ApplicationEvent.h"
 #include "Window.h"
 
-#include "Khagta/Renderer/Shader.h"
-#include "Khagta/Renderer/Buffer.h"
-#include "Khagta/Renderer/VertexArray.h"
-
 #include "imGui/imGuiLayer.h"
 
 namespace Khagta
@@ -39,12 +35,6 @@ namespace Khagta
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_PurpleShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
 
 	private:
 		static Application* s_Instance;

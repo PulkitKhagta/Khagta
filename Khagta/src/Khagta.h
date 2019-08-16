@@ -12,6 +12,17 @@
 
 #include "Khagta/imGui/imGuiLayer.h"
 
+//-------Renderer---------------
+#include "Khagta/Renderer/Renderer.h"
+#include "Khagta/Renderer/RenderCommand.h"
+
+#include "Khagta/Renderer/Buffer.h"
+#include "Khagta/Renderer/Shader.h"
+#include "Khagta/Renderer/VertexArray.h"
+
+#include "Khagta/Renderer/OrthographicCamera.h"
+//---------------------------------
+
 //-------EntryPoint---------------
 #include "Khagta/EntryPoint.h"
 //---------------------------------
