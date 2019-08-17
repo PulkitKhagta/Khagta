@@ -6,6 +6,8 @@
 #include "Khagta/Layer.h"
 #include "Khagta/Log.h"
 
+#include "Khagta/Core/TimeStep.h"
+
 #include "Khagta/Input.h"
 #include "Khagta/KeyCodes.h"
 #include "Khagta/MouseButtonCodes.h"

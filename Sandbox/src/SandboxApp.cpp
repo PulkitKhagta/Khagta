@@ -2,11 +2,13 @@
 
 #include "imgui/imgui.h"
 
+#include "glm/gtc/matrix_transform.hpp"
+
 class ExampleLayer : public Khagta::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
 	{
 		m_VertexArray.reset(Khagta::VertexArray::Create());
 
@@ -36,10 +38,10 @@ public:
 		m_SquareVA.reset(Khagta::VertexArray::Create());
 
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<Khagta::VertexBuffer> squareVB;
@@ -63,6 +65,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -71,7 +74,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -98,13 +101,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -124,25 +128,37 @@ public:
 		m_PurpleShader.reset(new Khagta::Shader(PurpleShadervertexSrc, PurpleShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Khagta::Timestep ts) override
 	{
 		///////Camera Right and Left Movement//////////
 		if (Khagta::Input::IsKeyPressed(KG_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 		else if (Khagta::Input::IsKeyPressed(KG_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * ts;
 
 		///////Camera Up and Down Movement//////////
 		if (Khagta::Input::IsKeyPressed(KG_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * ts;
 		else if (Khagta::Input::IsKeyPressed(KG_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 
 		///////Camera Rotation Movement in clockwise and Anti-Clockwise //////////
 		if (Khagta::Input::IsKeyPressed(KG_KEY_A))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts;
 		else if (Khagta::Input::IsKeyPressed(KG_KEY_D))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
+
+		///////Square Right and Left Movement//////////
+		if (Khagta::Input::IsKeyPressed(KG_KEY_J))
+			m_SquarePosition.x -= m_SquareMoveSpeed * ts;
+		else if (Khagta::Input::IsKeyPressed(KG_KEY_L))
+			m_SquarePosition.x += m_SquareMoveSpeed * ts;
+
+		///////Square Up and Down Movement//////////
+		if (Khagta::Input::IsKeyPressed(KG_KEY_I))
+			m_SquarePosition.y += m_SquareMoveSpeed * ts;
+		else if (Khagta::Input::IsKeyPressed(KG_KEY_K))
+			m_SquarePosition.y -= m_SquareMoveSpeed * ts;
 
 		Khagta::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Khagta::RenderCommand::Clear();
@@ -153,7 +169,18 @@ public:
 		//////
 		Khagta::Renderer::BeginScene(m_Camera);
 
-		Khagta::Renderer::Submit(m_PurpleShader, m_SquareVA);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		for (int y = 0; y < 20; y++)
+		{
+			for (int  x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				Khagta::Renderer::Submit(m_PurpleShader, m_SquareVA, transform);
+			}
+		}
+
 		Khagta::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Khagta::Renderer::EndScene();
@@ -178,10 +205,13 @@ private:
 
 	Khagta::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
+	float m_CameraMoveSpeed = 5.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 2.0f;
+	float m_CameraRotationSpeed = 90.0f;
+
+	glm::vec3 m_SquarePosition;
+	float m_SquareMoveSpeed = 1.0f;
 
 };
 

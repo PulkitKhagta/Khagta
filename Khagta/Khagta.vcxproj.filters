@@ -1203,6 +1203,7 @@
     <ClInclude Include="src\Khagta\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Khagta\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Khagta\Core\TimeStep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Khagta\Application.cpp">

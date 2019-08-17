@@ -6,6 +6,8 @@
 #include "Khagta/Events/ApplicationEvent.h"
 #include "Window.h"
 
+#include "Khagta/Core/Timestep.h"
+
 #include "imGui/imGuiLayer.h"
 
 namespace Khagta
@@ -30,11 +32,14 @@ namespace Khagta
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
+	private:
 		std::unique_ptr<Window> m_Window;
 		imGuiLayer* m_imGuiLayer;
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;
+		
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;

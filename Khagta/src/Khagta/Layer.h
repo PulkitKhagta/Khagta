@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Khagta/Core.h"
+#include "Khagta/Core/TimeStep.h"
 #include "Khagta/Events/Event.h"
 
 namespace Khagta {
@@ -13,7 +14,7 @@ namespace Khagta {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

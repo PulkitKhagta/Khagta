@@ -143,6 +143,7 @@
     <ClInclude Include="src\Khagta.h" />
     <ClInclude Include="src\Khagta\Application.h" />
     <ClInclude Include="src\Khagta\Core.h" />
+    <ClInclude Include="src\Khagta\Core\TimeStep.h" />
     <ClInclude Include="src\Khagta\EntryPoint.h" />
     <ClInclude Include="src\Khagta\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Khagta\Events\Event.h" />
