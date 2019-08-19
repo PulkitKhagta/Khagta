@@ -1,8 +1,11 @@
 #include <Khagta.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include "imgui/imgui.h"
 
 #include "glm/gtc/matrix_transform.hpp"
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Khagta::Layer
 {
@@ -93,9 +96,9 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new Khagta::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Khagta::Shader::Create(vertexSrc, fragmentSrc));
 
-		std::string PurpleShadervertexSrc = R"(
+		std::string flatColorShadervertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
@@ -112,20 +115,22 @@ public:
 			}
 		)";
 
-		std::string PurpleShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
 
+			uniform vec3 u_Color;
+
 			void main()
 			{
-				color = vec4(0.6, 0.2, 0.9, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_PurpleShader.reset(new Khagta::Shader(PurpleShadervertexSrc, PurpleShaderFragmentSrc));
+		m_FlatColorShader.reset(Khagta::Shader::Create(flatColorShadervertexSrc, flatColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(Khagta::Timestep ts) override
@@ -148,18 +153,6 @@ public:
 		else if (Khagta::Input::IsKeyPressed(KG_KEY_D))
 			m_CameraRotation -= m_CameraRotationSpeed * ts;
 
-		///////Square Right and Left Movement//////////
-		if (Khagta::Input::IsKeyPressed(KG_KEY_J))
-			m_SquarePosition.x -= m_SquareMoveSpeed * ts;
-		else if (Khagta::Input::IsKeyPressed(KG_KEY_L))
-			m_SquarePosition.x += m_SquareMoveSpeed * ts;
-
-		///////Square Up and Down Movement//////////
-		if (Khagta::Input::IsKeyPressed(KG_KEY_I))
-			m_SquarePosition.y += m_SquareMoveSpeed * ts;
-		else if (Khagta::Input::IsKeyPressed(KG_KEY_K))
-			m_SquarePosition.y -= m_SquareMoveSpeed * ts;
-
 		Khagta::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Khagta::RenderCommand::Clear();
 
@@ -171,13 +164,16 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		std::dynamic_pointer_cast<Khagta::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<Khagta::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
 		for (int y = 0; y < 20; y++)
 		{
 			for (int  x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Khagta::Renderer::Submit(m_PurpleShader, m_SquareVA, transform);
+				Khagta::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}
 
@@ -189,6 +185,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	void OnEvent(Khagta::Event& event) override
@@ -200,7 +199,7 @@ private:
 	std::shared_ptr<Khagta::Shader> m_Shader;
 	std::shared_ptr<Khagta::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Khagta::Shader> m_PurpleShader;
+	std::shared_ptr<Khagta::Shader> m_FlatColorShader;
 	std::shared_ptr<Khagta::VertexArray> m_SquareVA;
 
 	Khagta::OrthographicCamera m_Camera;
@@ -212,6 +211,8 @@ private:
 
 	glm::vec3 m_SquarePosition;
 	float m_SquareMoveSpeed = 1.0f;
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 };
 
