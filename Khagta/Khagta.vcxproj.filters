@@ -7,14 +7,23 @@
     <Filter Include="src\Khagta">
       <UniqueIdentifier>{CCAFC11B-B867-0369-216F-DCC40D469E59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Khagta\Core">
+      <UniqueIdentifier>{A4937CB2-101F-EA76-1930-6D6B853A4677}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Khagta\Events">
       <UniqueIdentifier>{301E1249-9C34-10DF-E5AB-9B005101E166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Khagta\Renderer">
+      <UniqueIdentifier>{F2780DCD-5EDA-EADA-E747-318D53A8219A}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Khagta\imGui">
       <UniqueIdentifier>{16DEBC04-02D7-DB56-2B09-C1DB1761BB62}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -40,6 +49,9 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stp_image">
+      <UniqueIdentifier>{9BF2698F-87EB-88E1-B01D-6E669C7568ED}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Khagta.h">
@@ -50,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="src\Khagta\Core.h">
       <Filter>src\Khagta</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\TimeStep.h">
+      <Filter>src\Khagta\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\EntryPoint.h">
       <Filter>src\Khagta</Filter>
@@ -84,11 +99,56 @@
     <ClInclude Include="src\Khagta\MouseButtonCodes.h">
       <Filter>src\Khagta</Filter>
     </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\Buffer.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\GraphicsContext.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\OrthographicCamera.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\RenderCommand.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\Renderer.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\RendererAPI.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\Shader.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\Texture.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\VertexArray.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Khagta\Window.h">
       <Filter>src\Khagta</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\imGui\imGuiLayer.h">
       <Filter>src\Khagta\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1191,20 +1251,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Khagta\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Khagta\Renderer\Shader.h" />
-    <ClInclude Include="src\Khagta\Renderer\Buffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Khagta\Renderer\Renderer.h" />
-    <ClInclude Include="src\Khagta\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Khagta\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Khagta\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Khagta\Renderer\OrthographicCamera.h" />
-    <ClInclude Include="src\Khagta\Core\TimeStep.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="vendor\stp_image\stp_image.h">
+      <Filter>vendor\stp_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Khagta\Application.cpp">
@@ -1219,11 +1268,53 @@
     <ClCompile Include="src\Khagta\Log.cpp">
       <Filter>src\Khagta</Filter>
     </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\Buffer.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\RenderCommand.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\Renderer.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\RendererAPI.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\Shader.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\Texture.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\VertexArray.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Khagta\imGui\imGuiBuild.cpp">
       <Filter>src\Khagta\imGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Khagta\imGui\imGuiLayer.cpp">
       <Filter>src\Khagta\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
@@ -1234,17 +1325,8 @@
     <ClCompile Include="src\kgpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Khagta\Renderer\OrthographicCamera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="vendor\stp_image\stp_image.cpp">
+      <Filter>vendor\stp_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

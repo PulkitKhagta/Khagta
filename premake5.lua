@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "Khagta/vendor/GLFW/include"
 IncludeDir["Glad"] = "Khagta/vendor/Glad/include"
 IncludeDir["imGui"] = "Khagta/vendor/imgui"
 IncludeDir["glm"] = "Khagta/vendor/glm"
+IncludeDir["stp_image"] = "Khagta/vendor/stp_image"
 
 include "Khagta/vendor/GLFW"
 include "Khagta/vendor/Glad"
@@ -39,6 +40,8 @@ project "Khagta"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stp_image/**.h",
+		"%{prj.name}/vendor/stp_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -56,7 +59,8 @@ project "Khagta"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.imGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stp_image}"
 	}
 
 	links

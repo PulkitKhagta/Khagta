@@ -20,6 +20,7 @@
 
 #include "Khagta/Renderer/Buffer.h"
 #include "Khagta/Renderer/Shader.h"
+#include "Khagta/Renderer/Texture.h"
 #include "Khagta/Renderer/VertexArray.h"
 
 #include "Khagta/Renderer/OrthographicCamera.h"

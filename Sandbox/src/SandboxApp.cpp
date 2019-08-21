@@ -21,7 +21,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.9f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Khagta::VertexBuffer> vertexBuffer;
+		Khagta::Ref<Khagta::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Khagta::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 
@@ -34,29 +34,30 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Khagta::IndexBuffer> indexBuffer;
+		Khagta::Ref<Khagta::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Khagta::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(Khagta::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Khagta::VertexBuffer> squareVB;
+		Khagta::Ref<Khagta::VertexBuffer> squareVB;
 		squareVB.reset(Khagta::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 		squareVB->SetLayout({
-			{Khagta::ShaderDataType::Float3, "a_Position"}
+			{Khagta::ShaderDataType::Float3, "a_Position"},
+			{Khagta::ShaderDataType::Float2, "a_TexCoord"}
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Khagta::IndexBuffer> squareIB;
+		Khagta::Ref<Khagta::IndexBuffer> squareIB;
 		squareIB.reset(Khagta::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 
 		m_SquareVA->SetIndexBuffer(squareIB);
@@ -131,6 +132,46 @@ public:
 		)";
 
 		m_FlatColorShader.reset(Khagta::Shader::Create(flatColorShadervertexSrc, flatColorShaderFragmentSrc));
+
+		std::string textureShadervertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Khagta::Shader::Create(textureShadervertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = Khagta::Texture2D::Create("Assets/Textures/367.jpg");
+
+		std::dynamic_pointer_cast<Khagta::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Khagta::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Khagta::Timestep ts) override
@@ -177,7 +218,11 @@ public:
 			}
 		}
 
-		Khagta::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Texture->Bind();
+		Khagta::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		//Triangle
+		//Khagta::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Khagta::Renderer::EndScene();
 		//////
@@ -196,11 +241,13 @@ public:
 
 private:
 
-	std::shared_ptr<Khagta::Shader> m_Shader;
-	std::shared_ptr<Khagta::VertexArray> m_VertexArray;
+	Khagta::Ref<Khagta::Shader> m_Shader;
+	Khagta::Ref<Khagta::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Khagta::Shader> m_FlatColorShader;
-	std::shared_ptr<Khagta::VertexArray> m_SquareVA;
+	Khagta::Ref<Khagta::Shader> m_FlatColorShader, m_TextureShader;
+	Khagta::Ref<Khagta::VertexArray> m_SquareVA;
+
+	Khagta::Ref<Khagta::Texture2D> m_Texture;
 
 	Khagta::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
