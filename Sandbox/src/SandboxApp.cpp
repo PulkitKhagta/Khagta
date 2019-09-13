@@ -97,7 +97,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Khagta::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Khagta::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorShadervertexSrc = R"(
 			#version 330 core
@@ -131,48 +131,15 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(Khagta::Shader::Create(flatColorShadervertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader = Khagta::Shader::Create("FlatColor", flatColorShadervertexSrc, flatColorShaderFragmentSrc);
 
-		std::string textureShadervertexSrc = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string textureShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(Khagta::Shader::Create(textureShadervertexSrc, textureShaderFragmentSrc));
+		auto textureShader = m_ShaderLibrary.Load("Assets/Shaders/Texture.glsl");
 
 		m_Texture = Khagta::Texture2D::Create("Assets/Textures/367.jpg");
 		m_PixelHuman = Khagta::Texture2D::Create("Assets/Textures/PixelHuman.png");
 
-		std::dynamic_pointer_cast<Khagta::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Khagta::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Khagta::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Khagta::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Khagta::Timestep ts) override
@@ -219,11 +186,13 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		Khagta::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Khagta::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_PixelHuman->Bind();
-		Khagta::Renderer::Submit(m_TextureShader, m_SquareVA, glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, -0.5f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
+		Khagta::Renderer::Submit(textureShader, m_SquareVA, glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, -0.5f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
 
 		//Triangle
 		//Khagta::Renderer::Submit(m_Shader, m_VertexArray);
@@ -244,11 +213,11 @@ public:
 	}
 
 private:
-
+	Khagta::ShaderLibrary m_ShaderLibrary;
 	Khagta::Ref<Khagta::Shader> m_Shader;
 	Khagta::Ref<Khagta::VertexArray> m_VertexArray;
 
-	Khagta::Ref<Khagta::Shader> m_FlatColorShader, m_TextureShader;
+	Khagta::Ref<Khagta::Shader> m_FlatColorShader;
 	Khagta::Ref<Khagta::VertexArray> m_SquareVA;
 
 	Khagta::Ref<Khagta::Texture2D> m_Texture, m_PixelHuman;
