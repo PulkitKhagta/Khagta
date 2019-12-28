@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Core.h"
-#include "Events/Event.h"
-#include "Khagta/LayerStack.h"
+#include "Khagta/Events/Event.h"
+#include "Khagta/Core/LayerStack.h"
 #include "Khagta/Events/ApplicationEvent.h"
 #include "Window.h"
 
 #include "Khagta/Core/Timestep.h"
 
-#include "imGui/imGuiLayer.h"
+#include "Khagta/imGui/imGuiLayer.h"
 
 namespace Khagta
 {
@@ -31,11 +31,13 @@ namespace Khagta
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
 		std::unique_ptr<Window> m_Window;
-		imGuiLayer* m_imGuiLayer;
+		imGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 
 		LayerStack m_LayerStack;
 		

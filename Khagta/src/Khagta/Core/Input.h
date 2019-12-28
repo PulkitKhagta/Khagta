@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Khagta/Core.h"
+#include "Khagta/Core/Core.h"
 
 namespace Khagta {
 	class  Input

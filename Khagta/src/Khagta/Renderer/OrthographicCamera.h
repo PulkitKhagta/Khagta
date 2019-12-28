@@ -9,15 +9,17 @@ namespace Khagta {
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 
+		void SetProjection(float left, float right, float bottom, float top);
+
 		const glm::vec3 GetPosition() const { return m_Position; }
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 
 		float GetRotation() const { return m_Rotation; }
 		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 
-		const glm::mat4& GetProjectionMatrix() { return m_ProjectionMatrix; }
-		const glm::mat4& GetViewMatrix() { return m_ViewMatrix; }
-		const glm::mat4& GetViewProjectionMatrix() { return m_ViewProjectionMatrix; }
+		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
+		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
+		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
 
 	private:
 		void RecalculateViewMatrix();

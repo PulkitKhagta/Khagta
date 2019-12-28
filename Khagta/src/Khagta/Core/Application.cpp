@@ -1,8 +1,8 @@
 #include "kgpch.h"
 #include "Application.h"
 
-#include "Khagta/Log.h"
-#include "Renderer/Renderer.h"
+#include "Khagta/Core/Log.h"
+#include "Khagta/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -24,8 +24,8 @@ namespace Khagta
 
 		Renderer::Init();
 
-		m_imGuiLayer = new imGuiLayer();
-		PushOverlay(m_imGuiLayer);
+		m_ImGuiLayer = new imGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -40,13 +40,17 @@ namespace Khagta
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
-
-			m_imGuiLayer->Begin();
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
+			
+			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
-			m_imGuiLayer->End();
+			m_ImGuiLayer->End();
+			
 
 			m_Window->OnUpdate();
 		}
@@ -56,6 +60,7 @@ namespace Khagta
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		KG_CORE_TRACE("{0}", e);
 
@@ -83,5 +88,18 @@ namespace Khagta
 	{
 		m_Running = false;
 		return true;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 }

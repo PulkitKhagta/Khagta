@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Khagta/Core.h"
+#include "Khagta/Core/Core.h"
 #include "Khagta/Core/TimeStep.h"
 #include "Khagta/Events/Event.h"
 

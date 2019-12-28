@@ -127,6 +127,8 @@ namespace Khagta
 			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
+		m_RendererID = program;
+
 		// Link our program
 		glLinkProgram(program);
 
@@ -155,10 +157,11 @@ namespace Khagta
 		}
 
 		// Always detach shaders after a successful link.
-		for(auto id : glShaderIDs)
+		for (auto id : glShaderIDs)
+		{
 			glDetachShader(program, id);
-
-		m_RendererID = program;
+			glDeleteShader(id);
+		}
 	}
 	
 	void OpenGLShader::Bind() const
@@ -169,6 +172,26 @@ namespace Khagta
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::SetInt(const std::string& name, int value)
+	{
+		UploadUniformInt(name, value);
+	}
+
+	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
+	{
+		UploadUniformFloat3(name, value);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
+	{
+		UploadUniformFloat4(name, value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
+	{
+		UploadUniformMat4(name, value);
 	}
 
 	void OpenGLShader::UploadUniformInt(const std::string& name, int values)

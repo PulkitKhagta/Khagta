@@ -2,7 +2,7 @@
 
 #include "kgpch.h"
 
-#include "Khagta/Core.h"
+#include "Khagta/Core/Core.h"
 #include "Khagta/Events/Event.h"
 
 namespace Khagta {

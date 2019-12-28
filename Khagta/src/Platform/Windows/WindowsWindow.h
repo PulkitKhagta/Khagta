@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Khagta/Window.h"
+#include "Khagta/Core/Window.h"
 #include "Khagta/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

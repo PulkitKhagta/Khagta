@@ -1,7 +1,7 @@
 #include "kgpch.h"
 #include "WindowsInput.h"
 
-#include "Khagta/Application.h"
+#include "Khagta/Core/Application.h"
 #include "GLFW/glfw3.h"
 
 namespace Khagta {

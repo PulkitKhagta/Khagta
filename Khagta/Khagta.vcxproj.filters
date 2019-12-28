@@ -57,17 +57,38 @@
     <ClInclude Include="src\Khagta.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Khagta\Application.h">
-      <Filter>src\Khagta</Filter>
+    <ClInclude Include="src\Khagta\Core\Application.h">
+      <Filter>src\Khagta\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Khagta\Core.h">
-      <Filter>src\Khagta</Filter>
+    <ClInclude Include="src\Khagta\Core\Core.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\EntryPoint.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\Input.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\KeyCodes.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\Layer.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\LayerStack.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\Log.h">
+      <Filter>src\Khagta\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Core\MouseButtonCodes.h">
+      <Filter>src\Khagta\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\Core\TimeStep.h">
       <Filter>src\Khagta\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Khagta\EntryPoint.h">
-      <Filter>src\Khagta</Filter>
+    <ClInclude Include="src\Khagta\Core\Window.h">
+      <Filter>src\Khagta\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\Events\ApplicationEvent.h">
       <Filter>src\Khagta\Events</Filter>
@@ -81,24 +102,6 @@
     <ClInclude Include="src\Khagta\Events\MouseEvent.h">
       <Filter>src\Khagta\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Khagta\Input.h">
-      <Filter>src\Khagta</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Khagta\KeyCodes.h">
-      <Filter>src\Khagta</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Khagta\Layer.h">
-      <Filter>src\Khagta</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Khagta\LayerStack.h">
-      <Filter>src\Khagta</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Khagta\Log.h">
-      <Filter>src\Khagta</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Khagta\MouseButtonCodes.h">
-      <Filter>src\Khagta</Filter>
-    </ClInclude>
     <ClInclude Include="src\Khagta\Renderer\Buffer.h">
       <Filter>src\Khagta\Renderer</Filter>
     </ClInclude>
@@ -106,6 +109,9 @@
       <Filter>src\Khagta\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\Renderer\OrthographicCamera.h">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\OrthographicCameraController.h">
       <Filter>src\Khagta\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\Renderer\RenderCommand.h">
@@ -125,9 +131,6 @@
     </ClInclude>
     <ClInclude Include="src\Khagta\Renderer\VertexArray.h">
       <Filter>src\Khagta\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Khagta\Window.h">
-      <Filter>src\Khagta</Filter>
     </ClInclude>
     <ClInclude Include="src\Khagta\imGui\imGuiLayer.h">
       <Filter>src\Khagta\imGui</Filter>
@@ -1254,24 +1257,28 @@
     <ClInclude Include="vendor\stp_image\stp_image.h">
       <Filter>vendor\stp_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Khagta\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Khagta\Application.cpp">
-      <Filter>src\Khagta</Filter>
+    <ClCompile Include="src\Khagta\Core\Application.cpp">
+      <Filter>src\Khagta\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Khagta\Layer.cpp">
-      <Filter>src\Khagta</Filter>
+    <ClCompile Include="src\Khagta\Core\Layer.cpp">
+      <Filter>src\Khagta\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Khagta\LayerStack.cpp">
-      <Filter>src\Khagta</Filter>
+    <ClCompile Include="src\Khagta\Core\LayerStack.cpp">
+      <Filter>src\Khagta\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Khagta\Log.cpp">
-      <Filter>src\Khagta</Filter>
+    <ClCompile Include="src\Khagta\Core\Log.cpp">
+      <Filter>src\Khagta\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Khagta\Renderer\Buffer.cpp">
       <Filter>src\Khagta\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Khagta\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Khagta\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Khagta\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Khagta\Renderer\RenderCommand.cpp">
@@ -1328,5 +1335,6 @@
     <ClCompile Include="vendor\stp_image\stp_image.cpp">
       <Filter>vendor\stp_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Khagta\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

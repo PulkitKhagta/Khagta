@@ -77,7 +77,6 @@ project "Khagta"
 
 		defines
 		{
-		"KG_PLATFORM_WINDOWS",
 		"KG_BUILD_DLL",
 		"GLFW_INCLUDE_NONE"
 		}
@@ -129,12 +128,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-
-		defines
-		{
-		"KG_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "KG_DEBUG"

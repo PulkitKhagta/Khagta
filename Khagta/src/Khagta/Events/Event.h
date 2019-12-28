@@ -1,6 +1,6 @@
 #pragma once
 #include "kgpch.h"
-#include "Khagta/Core.h"
+#include "Khagta/Core/Core.h"
 
 
 namespace Khagta {

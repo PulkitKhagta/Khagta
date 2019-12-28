@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Khagta/Input.h"
+#include "Khagta/Core/Input.h"
 
 namespace Khagta {
 	class WindowsInput : public Input

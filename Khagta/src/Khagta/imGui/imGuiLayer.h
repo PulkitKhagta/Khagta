@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Khagta/Layer.h"
+#include "Khagta/Core/Layer.h"
 
 #include "Khagta/Events/ApplicationEvent.h"
 #include "Khagta/Events/KeyEvent.h"
@@ -12,7 +12,7 @@ namespace Khagta {
 	{
 	public:
 		imGuiLayer();
-		~imGuiLayer();
+		~imGuiLayer() = default;
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
